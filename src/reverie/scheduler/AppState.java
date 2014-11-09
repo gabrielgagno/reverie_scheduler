@@ -17,6 +17,8 @@ public abstract class AppState {
     private static String user;
     private static String preferredPrio;
     private static String preferredView;
+    private static int constX;
+    private static int constY;
 
     public static void initalizeState(){
         String propFile = "resources/config.properties";
@@ -28,6 +30,14 @@ public abstract class AppState {
             user = prop.getProperty("user");
             preferredPrio = prop.getProperty("preferredprio");
             preferredView = prop.getProperty("preferredview");
+            if(preferredPrio.equals("deadline")){
+                constX = 2;
+                constY = 1;
+            }
+            else{
+                constX = 1;
+                constY = 2;
+            }
             System.out.println("Settings File loaded");
         }
         catch (IOException ex){
@@ -35,7 +45,7 @@ public abstract class AppState {
         }
     }
 
-    public static void setState(String user, String preferredPrio, String preferredView){
+    public static void saveState(String user, String preferredPrio, String preferredView){
         String propFile = "src/resources/config.properties";
         Properties prop = new Properties();
         try{
