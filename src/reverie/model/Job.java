@@ -9,7 +9,7 @@ import java.util.Date;
  * @version 1.0 11/6/2014
  *
  */
-public class Job {
+public abstract class Job {
     private int jobId;
     private String jobName;
     private String jobNotes;
