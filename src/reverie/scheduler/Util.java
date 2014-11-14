@@ -1,19 +1,30 @@
 package reverie.scheduler;
 
-import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
- * Created by Dell on 11/8/2014.
+ * Created by Dell on 11/12/2014.
  */
 public abstract class Util {
-
-    public static int randomize(int ub){
-        Random rand = new Random();
-        return rand.nextInt(ub);
+    public static Date convertToDate(String date, String time){
+        StringBuilder stringBuilder = new StringBuilder(date);
+        stringBuilder.append(' ');
+        stringBuilder.append(time);
+        String newString = stringBuilder.toString();
+        System.out.println(newString);
+        Date buildDate = null;
+        try {
+            buildDate = new SimpleDateFormat("y.MM.d h:mm a").parse(newString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return buildDate;
     }
 
-    public static int randomize(int lb, int ub){
-        Random rand = new Random();
-        return rand.nextInt(ub);
+    public long unixTimestamp(Date date){
+        return date.getTime();
     }
 }

@@ -20,6 +20,7 @@ public abstract class AppState {
     private static int constX;
     private static int constY;
 
+    //state initialization methods
     public static void initalizeState(){
         String propFile = "resources/config.properties";
         Properties prop = new Properties();
@@ -82,5 +83,13 @@ public abstract class AppState {
         return habitQueue;
     }
 
+    //set methods
+    public static void addToPrioQueue(Task task){
+        AppState.priorityQueue.add(task);
+        //redraw
+    }
 
+    public static void addToHabitQueue(Habit habit){
+        AppState.habitQueue.add(habit);
+    }
 }

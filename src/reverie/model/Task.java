@@ -1,5 +1,7 @@
 package reverie.model;
 
+import reverie.scheduler.Scheduler;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,10 +20,13 @@ public class Task extends Job {
     //first before setting the super's endTimestamp.
     private int operationDuration;
     private Date deadlineTimestamp;
+    private int weight;
 
-    public Task(int jobId, String jobName, String jobNotes, Date startTimestamp, int operationDuration, Date deadlineTimestamp){
+    public Task(int jobId, String jobName, String jobNotes, int numOperations, Date startTimestamp, int operationDuration, Date deadlineTimestamp){
         super(jobId, jobName, jobNotes, startTimestamp);
+        this.numOperations = numOperations;
         this.operationDuration = operationDuration;
         this.deadlineTimestamp = deadlineTimestamp;
+
     }
 }
