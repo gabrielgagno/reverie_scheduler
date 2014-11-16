@@ -20,7 +20,7 @@ public class Task extends Job {
     //first before setting the super's endTimestamp.
     private int operationDuration;
     private Date deadlineTimestamp;
-    private int weight;
+    private long weight;
 
     public Task(int jobId, String jobName, String jobNotes, int numOperations, Date startTimestamp, int operationDuration, Date deadlineTimestamp){
         super(jobId, jobName, jobNotes, startTimestamp);
@@ -28,5 +28,37 @@ public class Task extends Job {
         this.operationDuration = operationDuration;
         this.deadlineTimestamp = deadlineTimestamp;
 
+    }
+    //getter and setter
+    public long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(long weight) {
+        this.weight = weight;
+    }
+
+    public int getNumOperations() {
+        return numOperations;
+    }
+
+    public void setNumOperations(int numOperations) {
+        this.numOperations = numOperations;
+    }
+
+    public int getOperationDuration() {
+        return operationDuration;
+    }
+
+    public void setOperationDuration(int operationDuration) {
+        this.operationDuration = operationDuration;
+    }
+
+    public Date getDeadlineTimestamp() {
+        return deadlineTimestamp;
+    }
+
+    public void setDeadlineTimestamp(Date deadlineTimestamp) {
+        this.deadlineTimestamp = deadlineTimestamp;
     }
 }
