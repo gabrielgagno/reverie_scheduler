@@ -83,6 +83,14 @@ public abstract class AppState {
         return habitQueue;
     }
 
+    public static int getConstX(){
+        return constX;
+    }
+
+    public static int getConstY(){
+        return constY;
+    }
+
     //set methods
     public static void addToPrioQueue(Task task){
         AppState.priorityQueue.add(task);

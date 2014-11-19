@@ -14,8 +14,8 @@ public abstract class Scheduler {
     public static void addToSchedule(Task task, ArrayList<Task> list){
         list.add(task);
         for(Task x:list){
-            //TODO set weight for each and every item in list
-            //x.setWeight();
+            x.setWeight(weight(AppState.getConstX(), AppState.getConstY(), Util.differenceInDays(new Date(), x.getDeadlineTimestamp()),x.getOperationDuration()));
+            System.out.println(x.getWeight());
         }
         //TODO rearrange
     }
@@ -26,11 +26,7 @@ public abstract class Scheduler {
     }
 
     public static void reDraw(){
-
-    }
-
-    public static void rearrange(ArrayList<Job> schedule){
-
+        //TODO algorithm for redrawing
     }
 
     public static long weight(int wx, int wy, long x, long y){
