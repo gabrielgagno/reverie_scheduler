@@ -26,7 +26,7 @@ public abstract class Util {
         return date.getTime();
     }
 
-    public static long differenceInDays(Date earlier, Date later){
+    public static long differenceInHours(Date earlier, Date later){
         long diff = unixTimestamp(later) - unixTimestamp(earlier);
         return TimeUnit.MILLISECONDS.toHours(diff);
     }

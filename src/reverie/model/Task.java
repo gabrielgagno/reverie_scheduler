@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Represents a job with a deadline, an operation duration, and
  */
-public class Task extends Job {
+public class Task extends Job implements Comparable<Task> {
     private int numOperations;
     //in this class, super's startTimestamp denotes a "global" start time - that is, the start time of the entire task.
     //if the task has more than one operation, it becomes the start time of the first operation. this is the same for
@@ -22,13 +22,13 @@ public class Task extends Job {
     private Date deadlineTimestamp;
     private long weight;
 
-    public Task(int jobId, String jobName, String jobNotes, int numOperations, Date startTimestamp, int operationDuration, Date deadlineTimestamp){
-        super(jobId, jobName, jobNotes, startTimestamp);
+    public Task(int jobId, String jobName, String jobNotes, int numOperations, int operationDuration, Date deadlineTimestamp) {
+        super(jobId, jobName, jobNotes);
         this.numOperations = numOperations;
         this.operationDuration = operationDuration;
         this.deadlineTimestamp = deadlineTimestamp;
-
     }
+
     //getter and setter
     public long getWeight() {
         return weight;
@@ -60,5 +60,9 @@ public class Task extends Job {
 
     public void setDeadlineTimestamp(Date deadlineTimestamp) {
         this.deadlineTimestamp = deadlineTimestamp;
+    }
+
+    public int compareTo(Task o){
+        return (int) (weight - o.weight);
     }
 }

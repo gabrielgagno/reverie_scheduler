@@ -10,16 +10,16 @@ import java.util.Date;
  *
  */
 public abstract class Job {
-    private int jobId;
-    private String jobName;
-    private String jobNotes;
-    private Date startTimestamp;
-    private Date endTimestamp;
+    protected int jobId;
+    protected String jobName;
+    protected String jobNotes;
+    protected Date startTimestamp;
+    protected Date endTimestamp;
     //startTimestamp is the start time of the job
     //endTimestamp is the end time of the job
     //these parameters are applicable to all its subclasses
 
-    public Job(int jobId, String jobName, String jobNotes, Date startTimestamp, Date endTimestamp){
+    protected Job(int jobId, String jobName, String jobNotes, Date startTimestamp, Date endTimestamp){
         this.jobId = jobId;
         this.jobName = jobName;
         this.jobNotes = jobNotes;
@@ -27,10 +27,9 @@ public abstract class Job {
         this.endTimestamp = endTimestamp;
     }
 
-    protected Job(int jobId, String jobName, String jobNotes, Date startTimestamp){
+    protected Job(int jobId, String jobName, String jobNotes) {
         this.jobId = jobId;
         this.jobName = jobName;
         this.jobNotes = jobNotes;
-        this.startTimestamp = startTimestamp;
     }
 }
