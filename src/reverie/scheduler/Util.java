@@ -1,5 +1,6 @@
 package reverie.scheduler;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,5 +30,13 @@ public abstract class Util {
     public static long differenceInHours(Date earlier, Date later){
         long diff = unixTimestamp(later) - unixTimestamp(earlier);
         return TimeUnit.MILLISECONDS.toHours(diff);
+    }
+
+    public static void loadSchedFile(File file){
+
+    }
+
+    public static void saveSchedFile(File file){
+
     }
 }

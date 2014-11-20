@@ -4,6 +4,7 @@
 
 import reverie.model.Task;
 import reverie.scheduler.*;
+import reverie.test.TestData;
 import reverie.view.ReverieMainFrame;
 
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ public class ReverieMain {
                 //TODO console mode
             }
             else if(args[0].equals("-devtest")){
-                //TODO test mode
+                //test mode
+                System.out.println("Welcome to reverie devtest.");
+                TestData.testReadInput();
             }
             else if(args[0].equals("-anova")){
                 //TODO anova mode
@@ -25,10 +28,10 @@ public class ReverieMain {
             else if(args[0].equals("-h")){
                 String helpMsg = "ReverieMain v1.0 help\nUsage: java -jar ReverieMain [-c|-devtest|-anova|-h]\n" +
                         "Parameters:\n" +
-                        "-c\tconsole mode\n" +
-                        "-devtest\tdeveloper test mode\n" +
-                        "-anova\tanova calculation mode\n" +
-                        "-h\t help (this window)";
+                        "-c\t  console mode\n" +
+                        "-devtest  developer test mode\n" +
+                        "-anova\t  anova calculation mode\n" +
+                        "-h\t  help (this window)";
                 System.out.println(helpMsg);
             }
             else{
