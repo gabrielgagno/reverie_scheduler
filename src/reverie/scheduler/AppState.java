@@ -44,6 +44,10 @@ public abstract class AppState {
         catch (IOException ex){
             System.out.println("No properties file! contact developer gjpgagno@uplb.edu.ph");
         }
+        schedule = new ArrayList<Job>();
+        priorityQueue = new ArrayList<Task>();
+        habitQueue = new ArrayList<Habit>();
+        //TODO try loading save files if they exist
     }
 
     public static void saveState(String user, String preferredPrio, String preferredView){
@@ -63,7 +67,7 @@ public abstract class AppState {
             AppState.preferredPrio = preferredPrio;
             AppState.preferredView = preferredView;
             AppState.firstRun = false;
-
+            //TODO save schedule (.rsch file)
         }
         catch(IOException ex){
             System.out.println("Failed to Write! contact developer gjpgagno@uplb.edu.ph");

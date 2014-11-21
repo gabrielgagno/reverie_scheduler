@@ -4,6 +4,7 @@ import reverie.scheduler.Scheduler;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by Dell on 11/7/2014.
@@ -22,7 +23,7 @@ public class Task extends Job implements Comparable<Task> {
     private Date deadlineTimestamp;
     private long weight;
 
-    public Task(int jobId, String jobName, String jobNotes, int numOperations, int operationDuration, Date deadlineTimestamp) {
+    public Task(UUID jobId, String jobName, String jobNotes, int numOperations, int operationDuration, Date deadlineTimestamp) {
         super(jobId, jobName, jobNotes);
         this.numOperations = numOperations;
         this.operationDuration = operationDuration;
@@ -30,6 +31,36 @@ public class Task extends Job implements Comparable<Task> {
     }
 
     //getter and setter
+    @Override
+    public UUID getJobId(){
+        return super.getJobId();
+    }
+
+    @Override
+    public void setJobId(UUID jobId){
+        super.setJobId(jobId);
+    }
+
+    @Override
+    public String getJobName(){
+        return super.getJobName();
+    }
+
+    @Override
+    public void setJobName(String jobName){
+        super.setJobName(jobName);
+    }
+
+    @Override
+    public String getJobNotes(){
+        return super.getJobNotes();
+    }
+
+    @Override
+    public void setJobNotes(String jobNotes){
+        super.setJobNotes(jobNotes);
+    }
+
     public long getWeight() {
         return weight;
     }
@@ -62,6 +93,7 @@ public class Task extends Job implements Comparable<Task> {
         this.deadlineTimestamp = deadlineTimestamp;
     }
 
+    //implemented from Comparable
     public int compareTo(Task o){
         return (int) (weight - o.weight);
     }
