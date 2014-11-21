@@ -14,11 +14,13 @@ import java.util.Date;
  */
 public abstract class Scheduler {
     public static void addToPrioQueue(Task task, ArrayList<Task> list){
+        //add task to list
         list.add(task);
         for(Task x:list){
+            //assign new weights to task
             x.setWeight(weight(AppState.getConstX(), AppState.getConstY(), Util.differenceInHours(new Date(), x.getDeadlineTimestamp()),x.getOperationDuration()));
-            System.out.println(x.getWeight());
         }
+        //auto-sort
         Collections.sort(list);
     }
 
