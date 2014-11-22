@@ -26,20 +26,18 @@ public abstract class Scheduler {
 
     public static void addToHabit(Habit habit, ArrayList<Habit> list){
         list.add(habit);
-        Scheduler.fitToSchedule(habit, AppState.getSchedule());
     }
 
-    public static void reDraw(){
-        //TODO algorithm for redrawing
-    }
+    public static void reDraw(ArrayList<Job> schedule, ArrayList<Task> priorityQueue, ArrayList<Habit> habitQueue, Date currentDate){
+        Date datePointer = currentDate;
+        int i=0, j=0;
+        schedule.clear();
+        for(Habit h : habitQueue){
+            schedule.add(h);
+        }
+        while(schedule.size()!=0){
 
-    public static void fitToSchedule(Habit habit, ArrayList<Job> schedule){
-        schedule.add(habit);
-    }
-
-    public static void fitToSchedule(Task task, ArrayList<Job> schedule){
-        schedule.add(task);
-        //TODO check if it fits
+        }
     }
 
     public static long weight(int wx, int wy, long x, long y){
