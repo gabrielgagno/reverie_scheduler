@@ -25,7 +25,7 @@ public abstract class TestData {
             int numHours=0;
             Date date1=null;
             Scanner readLine = new Scanner(new File(fileDir));
-            while(readLine.hasNext()){
+            while(readLine.hasNextLine()){
                 StringTokenizer tok = new StringTokenizer(readLine.nextLine(), " ");
                 while(tok.hasMoreTokens()){
                     jobType = tok.nextToken();

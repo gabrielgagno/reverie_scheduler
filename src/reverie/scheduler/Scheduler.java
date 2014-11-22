@@ -32,12 +32,17 @@ public abstract class Scheduler {
         Date datePointer = currentDate;
         int i=0, j=0;
         schedule.clear();
-        for(Habit h : habitQueue){
-            schedule.add(h);
+        while(priorityQueue.size()!=0){
+            //priorityQueue.get(i).setDeadlineTimestamp(Util.getDeadline());
+            Scheduler.fitToSchedule(priorityQueue.get(i), schedule, datePointer);
         }
-        while(schedule.size()!=0){
+    }
 
-        }
+    public static void fitToSchedule(Task task, ArrayList<Job> Schedule, Date datePointer){
+        //set start time (datePointer)
+        task.setStartTimestamp(datePointer);
+        //set end time
+        task.setDeadlineTimestamp(Util.getDeadline(datePointer, task.getOperationDuration()));
     }
 
     public static long weight(int wx, int wy, long x, long y){

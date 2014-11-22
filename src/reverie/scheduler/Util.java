@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Dell on 11/12/2014.
  */
 public abstract class Util {
+    public static final int HOUR_LONG = 3600*1000;
     public static Date convertToDate(String date, String time){
         String newString = date + ' ' + time;
         Date buildDate = null;
@@ -30,6 +31,12 @@ public abstract class Util {
     public static long differenceInHours(Date earlier, Date later){
         long diff = unixTimestamp(later) - unixTimestamp(earlier);
         return TimeUnit.MILLISECONDS.toHours(diff);
+    }
+
+    public static Date getDeadline(Date date, int hours){
+        long newDateLong = unixTimestamp(date);
+        newDateLong+= 2*HOUR_LONG;
+        return new Date(newDateLong);
     }
 
     public static String translateUUID(UUID uuid){

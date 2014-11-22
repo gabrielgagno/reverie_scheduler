@@ -22,6 +22,7 @@ public class Task extends Job implements Comparable<Task> {
     private int operationDuration;
     private Date deadlineTimestamp;
     private long weight;
+    private boolean hardDeadline; //reserve for future use
 
     public Task(UUID jobId, String jobName, String jobNotes, int numOperations, int operationDuration, Date deadlineTimestamp) {
         super(jobId, jobName, jobNotes);
@@ -59,6 +60,16 @@ public class Task extends Job implements Comparable<Task> {
     @Override
     public void setJobNotes(String jobNotes){
         super.setJobNotes(jobNotes);
+    }
+
+    @Override
+    public Date getStartTimestamp(){
+        return super.getStartTimestamp();
+    }
+
+    @Override
+    public void setStartTimestamp(Date startTimestamp){
+        super.setStartTimestamp(startTimestamp);
     }
 
     public long getWeight() {
