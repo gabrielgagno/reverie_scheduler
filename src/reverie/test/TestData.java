@@ -1,5 +1,6 @@
 package reverie.test;
 
+import reverie.model.Job;
 import reverie.model.Task;
 import reverie.scheduler.AppState;
 import reverie.scheduler.Scheduler;
@@ -33,11 +34,9 @@ public abstract class TestData {
                     jobNotes = tok.nextToken();
                     numOps = Integer.parseInt(tok.nextToken());
                     date = tok.nextToken() + ' ' + tok.nextToken() + ' ' + tok.nextToken();
-                    System.out.println(date);
                     numHours = Integer.parseInt(tok.nextToken());
                     try{
                         date1 = new SimpleDateFormat("y/MM/d h:mm a").parse(date);
-                        System.out.println(date1);
                     } catch(ParseException e){
                         e.printStackTrace();
                     }
@@ -48,12 +47,12 @@ public abstract class TestData {
             e.printStackTrace();
         }
         finally {
-            for(Task t: AppState.getPriorityQueue()){
-                System.out.println("HERE");
-                System.out.println(t.getWeight());
-            }
-            //TODO scheduling algorithm here (call)
             Scheduler.reDraw(AppState.getSchedule(), AppState.getPriorityQueue(), AppState.getHabitQueue(), new Date());
+            for(Job j : AppState.getSchedule()){
+                if(j instanceof Task){
+                    System.out.println(((Task) j).getJobName());
+                }
+            }
             Util.saveSchedFile(new File("C:\\Users\\Dell\\Documents\\UPLB Schoolwork\\4 Fourth Year\\CMSC 190-1\\SP\\ICS-template\\schedule.rsch"));
         }
     }
