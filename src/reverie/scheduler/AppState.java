@@ -48,6 +48,7 @@ public abstract class AppState {
         priorityQueue = new ArrayList<Task>();
         habitQueue = new ArrayList<Habit>();
         //TODO try loading save files if they exist
+        //TODO run background service of checking deadlines
     }
 
     public static void saveState(String user, String preferredPrio, String preferredView){

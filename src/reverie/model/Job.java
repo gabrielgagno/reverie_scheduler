@@ -66,11 +66,11 @@ public abstract class Job {
         this.startTimestamp = startTimestamp;
     }
 
-    protected Date getEndTimestamp() {
+    public Date getEndTimestamp() {
         return endTimestamp;
     }
 
-    protected void setEndTimestamp(Date endTimestamp) {
+    public void setEndTimestamp(Date endTimestamp) {
         this.endTimestamp = endTimestamp;
     }
 }

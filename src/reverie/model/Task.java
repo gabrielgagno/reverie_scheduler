@@ -72,6 +72,16 @@ public class Task extends Job implements Comparable<Task> {
         super.setStartTimestamp(startTimestamp);
     }
 
+    @Override
+    public Date getEndTimestamp(){
+        return super.getEndTimestamp();
+    }
+
+    @Override
+    public void setEndTimestamp(Date endTimestamp){
+        super.setEndTimestamp(endTimestamp);
+    }
+
     public long getWeight() {
         return weight;
     }
