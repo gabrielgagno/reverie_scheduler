@@ -54,6 +54,7 @@ public abstract class TestData {
             }
             //TODO scheduling algorithm here (call)
             Scheduler.reDraw(AppState.getSchedule(), AppState.getPriorityQueue(), AppState.getHabitQueue(), new Date());
+            Util.saveSchedFile(new File("C:\\Users\\Dell\\Documents\\UPLB Schoolwork\\4 Fourth Year\\CMSC 190-1\\SP\\ICS-template\\schedule.rsch"));
         }
     }
 }

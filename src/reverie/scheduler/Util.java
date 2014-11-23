@@ -1,6 +1,8 @@
 package reverie.scheduler;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,10 +31,10 @@ public abstract class Util {
     }
 
     public static long differenceInHours(Date earlier, Date later){
-        System.out.println("DEF EARLY: " + earlier);
-        System.out.println("DEF LATE: " + later);
+        //System.out.println("DEF EARLY: " + earlier);
+        //System.out.println("DEF LATE: " + later);
         long diff = unixTimestamp(later) - unixTimestamp(earlier);
-        System.out.println("DFFERENCE IN HOURS: " + diff);
+        //System.out.println("DFFERENCE IN HOURS: " + diff);
         return TimeUnit.MILLISECONDS.toHours(diff);
     }
 
@@ -51,6 +53,14 @@ public abstract class Util {
     }
 
     public static void saveSchedFile(File file){
-
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write("%rsch 1.0%\n");
+            writer.write("%user"+AppState.getUser()+"%\n");
+            writer.write("%"+new Date().toString()+"%\n");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

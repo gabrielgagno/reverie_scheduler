@@ -96,6 +96,10 @@ public abstract class AppState {
         return constY;
     }
 
+    public static String getUser(){
+        return user;
+    }
+
     //set methods
     public static void addToPrioQueue(Task task){
         AppState.priorityQueue.add(task);
