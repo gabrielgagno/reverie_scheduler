@@ -89,7 +89,9 @@ public abstract class Scheduler {
         int size = schedule.size();
         for(int i=0;i<size;i++){
             if(schedule.get(i).getStartTimestamp().after(tStart)){
-                //TODO revise fit here
+                if(Util.differenceInHours(tDead, schedule.get(i).getStartTimestamp())<0){
+                    return false;
+                }
             }
         }
         return true;
