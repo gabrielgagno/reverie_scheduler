@@ -30,17 +30,22 @@ public abstract class Scheduler {
 
     public static void reDraw(ArrayList<Job> schedule, ArrayList<Task> priorityQueue, ArrayList<Habit> habitQueue, Date currentDate){
         Date datePointer = currentDate;
+        System.out.println("INIT" + datePointer);
         int i=0, j=0;
         boolean any = false;
         schedule.clear();
         while(priorityQueue.size()!=0){
+            System.out.println(i);
             Scheduler.fitToSchedule(priorityQueue.get(i), schedule, datePointer);
-            datePointer = priorityQueue.get(i).getDeadlineTimestamp();
+            datePointer = priorityQueue.get(i).getEndTimestamp();
+            System.out.println("dtptr"+datePointer);
             //if not fit, then remove from schedule
-            if(fit(priorityQueue.get(i), schedule) && Util.differenceInHours(currentDate, priorityQueue.get(i).getDeadlineTimestamp())<0){
+            if(fit(i, priorityQueue.get(i), schedule) && Util.differenceInHours(currentDate, priorityQueue.get(i).getDeadlineTimestamp())<0){
+                System.out.println("YE");
                 schedule.remove(schedule.size()-1);
             }
-            else if(!fit(priorityQueue.get(i), schedule)){
+            else if(!fit(i, priorityQueue.get(i), schedule)){
+                System.out.println("YEE");
                 any = false;
                 i++;
                 while(!any && i!=priorityQueue.size()){
@@ -50,13 +55,15 @@ public abstract class Scheduler {
                     }
                     else{
                         any=true;
+                        priorityQueue.remove(i);
                     }
                 }
                 if(i==priorityQueue.size()){
                     //TODO skip to the end of next habit
                 }
             }
-            else if(fit(priorityQueue.get(i), schedule)){
+            else if(fit(i, priorityQueue.get(i), schedule)){
+                System.out.println("PASOK");
                 priorityQueue.remove(i);
                 i=0;
             }
@@ -66,17 +73,23 @@ public abstract class Scheduler {
     public static void fitToSchedule(Task task, ArrayList<Job> schedule, Date datePointer){
         //set start time (datePointer)
         task.setStartTimestamp(datePointer);
+        System.out.println("IN FIT: " + datePointer);
         //set end time
         task.setEndTimestamp(Util.getDeadline(datePointer, task.getOperationDuration()));
+        System.out.println("FITYEND" + Util.getDeadline(datePointer, task.getOperationDuration()));
         schedule.add(task);
     }
 
-    public static boolean fit(Task task, ArrayList<Job> schedule){
-        //check for the least distance
-        long time = Util.unixTimestamp(task.getEndTimestamp());
-        for(int i=0;i<schedule.size();i++){
-            if(Util.differenceInHours(task.getEndTimestamp(), schedule.get(i).getEndTimestamp())<0){
-                return false;
+    public static boolean fit(int index, Task task, ArrayList<Job> schedule){
+        //fit is defined as:
+        //minimum distance between task's end time and any of the scheduled tasks's start time
+        //must check only after the end time of task
+        Date tDead = task.getDeadlineTimestamp();
+        Date tStart = task.getStartTimestamp();
+        int size = schedule.size();
+        for(int i=0;i<size;i++){
+            if(schedule.get(i).getStartTimestamp().after(tStart)){
+                //TODO revise fit here
             }
         }
         return true;

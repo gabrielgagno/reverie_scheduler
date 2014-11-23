@@ -58,11 +58,11 @@ public abstract class Job {
         this.jobNotes = jobNotes;
     }
 
-    protected Date getStartTimestamp() {
+    public Date getStartTimestamp() {
         return startTimestamp;
     }
 
-    protected void setStartTimestamp(Date startTimestamp) {
+    public void setStartTimestamp(Date startTimestamp) {
         this.startTimestamp = startTimestamp;
     }
 

@@ -29,7 +29,10 @@ public abstract class Util {
     }
 
     public static long differenceInHours(Date earlier, Date later){
+        System.out.println("DEF EARLY: " + earlier);
+        System.out.println("DEF LATE: " + later);
         long diff = unixTimestamp(later) - unixTimestamp(earlier);
+        System.out.println("DFFERENCE IN HOURS: " + diff);
         return TimeUnit.MILLISECONDS.toHours(diff);
     }
 

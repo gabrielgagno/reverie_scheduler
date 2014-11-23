@@ -33,9 +33,11 @@ public abstract class TestData {
                     jobNotes = tok.nextToken();
                     numOps = Integer.parseInt(tok.nextToken());
                     date = tok.nextToken() + ' ' + tok.nextToken() + ' ' + tok.nextToken();
+                    System.out.println(date);
                     numHours = Integer.parseInt(tok.nextToken());
                     try{
                         date1 = new SimpleDateFormat("y/MM/d h:mm a").parse(date);
+                        System.out.println(date1);
                     } catch(ParseException e){
                         e.printStackTrace();
                     }
@@ -51,6 +53,7 @@ public abstract class TestData {
                 System.out.println(t.getWeight());
             }
             //TODO scheduling algorithm here (call)
+            Scheduler.reDraw(AppState.getSchedule(), AppState.getPriorityQueue(), AppState.getHabitQueue(), new Date());
         }
     }
 }
