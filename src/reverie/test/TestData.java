@@ -15,8 +15,30 @@ import java.util.*;
  * Created by Dell on 11/9/2014.
  */
 public abstract class TestData {
-    public static void testReadInput(){
+    public static void testRun(){
+        Date deadL=null;
+        Date setStart=null;
+        Date setEnd=null;
+        //test initialization
+        try {
+            deadL = new SimpleDateFormat("y/MM/d h:mm a").parse("2014/11/28 4:00 PM");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String fileDir = "src/resources/testinputs";
+        Task x = new Task(UUID.randomUUID(), "CMSC150", "optimize", 1, 3, deadL);
+        Scheduler.addToPrioQueue(x, AppState.getPriorityQueue());
+        try {
+            setStart = new SimpleDateFormat("y/MM/d h:mm a").parse("2014/11/24 5:10 AM");
+            setEnd = Util.getDeadline(setStart, 3);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        x.setStartTimestamp(setStart);
+        x.setEndTimestamp(setEnd);
+        System.out.println("WT: "+x.getWeight());
+        AppState.getSchedule().add(x);
+        //test initialization end
         try {
             String jobType = null;
             String jobTitle = null;
@@ -47,10 +69,13 @@ public abstract class TestData {
             e.printStackTrace();
         }
         finally {
+            for(Task t : AppState.getPriorityQueue()){
+                System.out.println(t.getJobName() + " " + t.getWeight());
+            }
             Scheduler.reDraw(AppState.getSchedule(), AppState.getPriorityQueue(), AppState.getHabitQueue(), new Date());
             for(Job j : AppState.getSchedule()){
                 if(j instanceof Task){
-                    System.out.println(((Task) j).getJobName());
+                    System.out.println(((Task) j).getJobName() + j.getStartTimestamp() + j.getEndTimestamp());
                 }
             }
             Util.saveSchedFile(new File("C:\\Users\\Dell\\Documents\\UPLB Schoolwork\\4 Fourth Year\\CMSC 190-1\\SP\\ICS-template\\schedule.rsch"));

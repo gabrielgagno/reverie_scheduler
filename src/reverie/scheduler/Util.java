@@ -40,7 +40,7 @@ public abstract class Util {
 
     public static Date getDeadline(Date date, int hours){
         long newDateLong = unixTimestamp(date);
-        newDateLong+= 2*HOUR_LONG;
+        newDateLong+= hours*HOUR_LONG;
         return new Date(newDateLong);
     }
 

@@ -116,6 +116,6 @@ public class Task extends Job implements Comparable<Task> {
 
     //implemented from Comparable
     public int compareTo(Task o){
-        return (int) (o.weight - weight);
+        return (int) (weight - o.weight);
     }
 }

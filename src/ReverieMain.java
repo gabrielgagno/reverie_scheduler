@@ -20,7 +20,7 @@ public class ReverieMain {
             else if(args[0].equals("-devtest")){
                 //test mode
                 System.out.println("Welcome to reverie devtest.");
-                TestData.testReadInput();
+                TestData.testRun();
             }
             else if(args[0].equals("-anova")){
                 //TODO anova mode
