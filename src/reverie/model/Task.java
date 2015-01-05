@@ -19,16 +19,24 @@ public class Task extends Job implements Comparable<Task> {
     //if the task has more than one operation, it becomes the start time of the first operation. this is the same for
     //super's endTimestamp, i.e. it is the end time of the last operation. in this case, the stagger operation happens
     //first before setting the super's endTimestamp.
+    private UUID prerequisiteJobId;
     private int operationDuration;
     private Date deadlineTimestamp;
     private long weight;
     private boolean hardDeadline; //reserve for future use
-
     public Task(UUID jobId, String jobName, String jobNotes, int numOperations, int operationDuration, Date deadlineTimestamp) {
         super(jobId, jobName, jobNotes);
         this.numOperations = numOperations;
         this.operationDuration = operationDuration;
         this.deadlineTimestamp = deadlineTimestamp;
+    }
+
+    public UUID getPrerequisiteJobId() {
+        return prerequisiteJobId;
+    }
+
+    public void setPrerequisiteJobId(UUID prerequisiteJobId) {
+        this.prerequisiteJobId = prerequisiteJobId;
     }
 
     //getter and setter
