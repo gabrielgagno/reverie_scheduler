@@ -34,18 +34,17 @@ public abstract class Scheduler {
         int i=0, j=0;
         boolean any = false;
         schedule.clear();
+        //TODO place all habits first
+
         while(priorityQueue.size()!=0){
-            //System.out.println(i);
+            //TODO if habit, then forcibly fit it in the schedule
             Scheduler.fitToSchedule(priorityQueue.get(i), schedule, datePointer);
             datePointer = priorityQueue.get(i).getEndTimestamp();
-            //System.out.println("dtptr"+datePointer);
             //if not fit, then remove from schedule
             if(fit(i, priorityQueue.get(i), schedule) && Util.differenceInHours(currentDate, priorityQueue.get(i).getDeadlineTimestamp())<0){
-                //System.out.println("YE");
                 schedule.remove(schedule.size()-1);
             }
             else if(!fit(i, priorityQueue.get(i), schedule)){
-                //System.out.println("YEE");
                 any = false;
                 i++;
                 while(!any && i!=priorityQueue.size()){
