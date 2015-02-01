@@ -19,6 +19,9 @@ public abstract class Job {
     //startTimestamp is the start time of the job
     //endTimestamp is the end time of the job
     //these parameters are applicable to all its subclasses
+    //for habits and tasks with more than one operation, the start time of the job is the
+    //start of the first operation of the job, while the end timestamp is the end time of
+    //the last operation.
 
     protected Job(UUID jobId, String jobName, String jobNotes, Date startTimestamp, Date endTimestamp){
         this.jobId = jobId;

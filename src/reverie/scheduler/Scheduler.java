@@ -35,7 +35,9 @@ public abstract class Scheduler {
         boolean any = false;
         schedule.clear();
         //TODO place all habits first
-
+        //for(Habit h : habitQueue){
+            //Scheduler.fitToSchedule(h, schedule, datePointer);
+        //}
         while(priorityQueue.size()!=0){
             //TODO if habit, then forcibly fit it in the schedule
             Scheduler.fitToSchedule(priorityQueue.get(i), schedule, datePointer);
@@ -77,6 +79,15 @@ public abstract class Scheduler {
         task.setEndTimestamp(Util.getDeadline(datePointer, task.getOperationDuration()));
         //System.out.println("FITYEND" + Util.getDeadline(datePointer, task.getOperationDuration()));
         schedule.add(task);
+    }
+
+    public static void fitToSchedule(Habit habit, ArrayList<Job> schedule, Date datePointer){
+        habit.setStartTimestamp(datePointer);
+        //System.out.println("IN FIT: " + datePointer);
+        //set end time
+        habit.setEndTimestamp(Util.getDeadline(datePointer, habit.getDuration()));
+        //System.out.println("FITYEND" + Util.getDeadline(datePointer, task.getOperationDuration()));
+        schedule.add(habit);
     }
 
     public static boolean fit(int index, Task task, ArrayList<Job> schedule){

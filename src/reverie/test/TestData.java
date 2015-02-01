@@ -1,5 +1,6 @@
 package reverie.test;
 
+import reverie.model.Habit;
 import reverie.model.Job;
 import reverie.model.Task;
 import reverie.scheduler.AppState;
@@ -21,7 +22,7 @@ public abstract class TestData {
         Date setEnd=null;
         //test initialization
         try {
-            deadL = new SimpleDateFormat("y/MM/d h:mm a").parse("2014/11/28 4:00 PM");
+            deadL = new SimpleDateFormat("y/MM/d h:mm a").parse("2015/2/1 4:00 PM");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -29,7 +30,7 @@ public abstract class TestData {
         Task x = new Task(UUID.randomUUID(), "CMSC150", "optimize", 1, 3, deadL);
         Scheduler.addToPrioQueue(x, AppState.getPriorityQueue());
         try {
-            setStart = new SimpleDateFormat("y/MM/d h:mm a").parse("2014/11/24 5:10 AM");
+            setStart = new SimpleDateFormat("y/MM/d h:mm a").parse("2015/2/1 4:00 AM");
             setEnd = Util.getDeadline(setStart, 3);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -39,6 +40,12 @@ public abstract class TestData {
         System.out.println("WT: "+x.getWeight());
         AppState.getSchedule().add(x);
         //test initialization end
+        //test initialization for habit
+        Habit h = new Habit(UUID.randomUUID(), "eat", "food", "daily", 3, "12:00");
+        //h.setStartTimestamp();
+        //h.setEndTimestamp();
+        AppState.getHabitQueue().add(h);
+        //test initialization for habit end
         try {
             String jobType = null;
             String jobTitle = null;
@@ -77,8 +84,11 @@ public abstract class TestData {
                 if(j instanceof Task){
                     System.out.println(((Task) j).getJobName() + j.getStartTimestamp() + j.getEndTimestamp());
                 }
+                else{
+                    System.out.println(((Habit) j).getJobName() + j.getStartTimestamp() + j.getEndTimestamp());
+                }
             }
-            Util.saveSchedFile(new File("C:\\Users\\Dell\\Documents\\UPLB Schoolwork\\4 Fourth Year\\CMSC 190-1\\SP\\ICS-template\\schedule.rsch"));
+            //Util.saveSchedFile(new File("C:\\Users\\Dell\\Documents\\UPLB Schoolwork\\4 Fourth Year\\CMSC 190-1\\SP\\ICS-template\\schedule.rsch"));
         }
     }
 }
