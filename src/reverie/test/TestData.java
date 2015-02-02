@@ -22,7 +22,7 @@ public abstract class TestData {
         Date setEnd=null;
         //test initialization
         try {
-            deadL = new SimpleDateFormat("y/MM/d h:mm a").parse("2015/2/1 4:00 PM");
+            deadL = new SimpleDateFormat("y/MM/d h:mm a").parse("2015/2/2 5:00 PM");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public abstract class TestData {
         Task x = new Task(UUID.randomUUID(), "CMSC150", "optimize", 1, 3, deadL);
         Scheduler.addToPrioQueue(x, AppState.getPriorityQueue());
         try {
-            setStart = new SimpleDateFormat("y/MM/d h:mm a").parse("2015/2/1 4:00 AM");
+            setStart = new SimpleDateFormat("y/MM/d h:mm a").parse("2015/2/2 1:00 PM");
             setEnd = Util.getDeadline(setStart, 3);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -42,8 +42,14 @@ public abstract class TestData {
         //test initialization end
         //test initialization for habit
         Habit h = new Habit(UUID.randomUUID(), "eat", "food", "daily", 3, "12:00");
-        //h.setStartTimestamp();
-        //h.setEndTimestamp();
+        try {
+            setStart = new SimpleDateFormat("y/MM/d h:mm a").parse("2015/2/2 4:00 AM");
+            setEnd = new SimpleDateFormat("y/MM/d h:mm a").parse("2015/2/1 6:00 AM");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        h.setStartTimestamp(setStart);
+        h.setEndTimestamp(setEnd);
         AppState.getHabitQueue().add(h);
         //test initialization for habit end
         try {
