@@ -6,7 +6,6 @@ import reverie.model.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -34,12 +33,10 @@ public abstract class Scheduler {
         int i=0, j=0;
         boolean any = false;
         schedule.clear();
-        //TODO place all habits first
         for(Habit h : habitQueue){
             Scheduler.fitToSchedule(h, schedule, datePointer);
         }
         while(priorityQueue.size()!=0){
-            //TODO if habit, then forcibly fit it in the schedule
             Scheduler.fitToSchedule(priorityQueue.get(i), schedule, datePointer);
             datePointer = priorityQueue.get(i).getEndTimestamp();
             //if not fit, then remove from schedule
