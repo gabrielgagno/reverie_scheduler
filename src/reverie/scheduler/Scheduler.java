@@ -36,6 +36,7 @@ public abstract class Scheduler {
         for(Habit h : habitQueue){
             Scheduler.fitToSchedule(h, schedule, datePointer);
         }
+        //do not remove tasks until all ranges have been covered
         while(priorityQueue.size()!=0){
             Scheduler.fitToSchedule(priorityQueue.get(i), schedule, datePointer);
             datePointer = priorityQueue.get(i).getEndTimestamp();

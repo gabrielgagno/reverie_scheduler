@@ -15,11 +15,12 @@ import java.util.UUID;
  */
 public class Task extends Job implements Comparable<Task> {
     private int numOperations;
-    private OperationRange[] ranges;
+    //the numOperations dictates the number of operations. the sieze of operationRanges is equal to this.
     //in this class, super's startTimestamp denotes a "global" start time - that is, the start time of the entire task.
     //if the task has more than one operation, it becomes the start time of the first operation. this is the same for
     //super's endTimestamp, i.e. it is the end time of the last operation. in this case, the stagger operation happens
     //first before setting the super's endTimestamp.
+    private SubTask[] subTasks;
     private UUID prerequisiteJobId;
     private int operationDuration;
     private Date deadlineTimestamp;
@@ -30,7 +31,7 @@ public class Task extends Job implements Comparable<Task> {
         this.numOperations = numOperations;
         this.operationDuration = operationDuration;
         this.deadlineTimestamp = deadlineTimestamp;
-        this.ranges = new OperationRange[operationDuration];
+        this.subTasks = new SubTask[numOperations];
     }
 
     public UUID getPrerequisiteJobId() {
