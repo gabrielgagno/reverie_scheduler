@@ -2,8 +2,10 @@ package reverie.scheduler;
 
 import reverie.model.Habit;
 import reverie.model.Job;
+import reverie.model.SubTask;
 import reverie.model.Task;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -28,44 +30,18 @@ public abstract class Scheduler {
     }
 
     public static void reDraw(ArrayList<Job> schedule, ArrayList<Task> priorityQueue, ArrayList<Habit> habitQueue, Date currentDate){
-        Date datePointer = currentDate;
-        //System.out.println("INIT" + datePointer);
+        Date datePointer = Util.findNearestHour(currentDate);
         int i=0, j=0;
         boolean any = false;
         schedule.clear();
         for(Habit h : habitQueue){
             Scheduler.fitToSchedule(h, schedule, datePointer);
         }
-        //do not remove tasks until all ranges have been covered
         while(priorityQueue.size()!=0){
-            Scheduler.fitToSchedule(priorityQueue.get(i), schedule, datePointer);
-            datePointer = priorityQueue.get(i).getEndTimestamp();
-            //if not fit, then remove from schedule
-            if(fit(i, priorityQueue.get(i), schedule) && Util.differenceInHours(currentDate, priorityQueue.get(i).getDeadlineTimestamp())<0){
-                schedule.remove(schedule.size()-1);
+            for(SubTask subTask : priorityQueue.get(i).getSubTasks()){
+
             }
-            else if(!fit(i, priorityQueue.get(i), schedule)){
-                any = false;
-                i++;
-                while(!any && i!=priorityQueue.size()){
-                    Scheduler.fitToSchedule(priorityQueue.get(i), schedule, datePointer);
-                    if(Util.differenceInHours(currentDate, priorityQueue.get(i).getDeadlineTimestamp())<0){
-                        schedule.remove(schedule.size()-1);
-                    }
-                    else{
-                        any=true;
-                        priorityQueue.remove(i);
-                    }
-                }
-                if(i==priorityQueue.size()){
-                    //TODO skip to the end of next habit
-                }
-            }
-            else if(fit(i, priorityQueue.get(i), schedule)){
-                //System.out.println("PASOK");
-                priorityQueue.remove(i);
-                i=0;
-            }
+            i++;
         }
     }
 
@@ -103,6 +79,10 @@ public abstract class Scheduler {
             }
         }
         return true;
+    }
+
+    public static void fitToSchedule(SubTask subTask, ArrayList<Job> schedule, Date datePointer){
+
     }
 
     public static long weight(int wx, int wy, long x, long y){

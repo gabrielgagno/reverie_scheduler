@@ -34,6 +34,22 @@ public class Task extends Job implements Comparable<Task> {
         this.subTasks = new SubTask[numOperations];
     }
 
+    public SubTask[] getSubTasks() {
+        return subTasks;
+    }
+
+    public void setSubTasks(SubTask[] subTasks) {
+        this.subTasks = subTasks;
+    }
+
+    public boolean isHardDeadline() {
+        return hardDeadline;
+    }
+
+    public void setHardDeadline(boolean hardDeadline) {
+        this.hardDeadline = hardDeadline;
+    }
+
     public UUID getPrerequisiteJobId() {
         return prerequisiteJobId;
     }

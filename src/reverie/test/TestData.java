@@ -16,7 +16,7 @@ import java.util.*;
  * Created by Dell on 11/9/2014.
  */
 public abstract class TestData {
-    public static void testRun(){
+    public static void testRun() throws ParseException {
         Date deadL=null;
         Date setStart=null;
         Date setEnd=null;
@@ -96,5 +96,9 @@ public abstract class TestData {
             }
             //Util.saveSchedFile(new File("C:\\Users\\Dell\\Documents\\UPLB Schoolwork\\4 Fourth Year\\CMSC 190-1\\SP\\ICS-template\\schedule.rsch"));
         }
+    }
+
+    public static void test(){
+
     }
 }
