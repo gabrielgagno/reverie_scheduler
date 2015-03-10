@@ -45,6 +45,7 @@ public abstract class Scheduler {
         }
     }
 
+    //needs modification: fit for subtasks
     public static void fitToSchedule(Task task, ArrayList<Job> schedule, Date datePointer){
         //set start time (datePointer)
         task.setStartTimestamp(datePointer);
