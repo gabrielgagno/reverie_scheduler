@@ -1,14 +1,14 @@
 package reverie.scheduler;
 
+import reverie.model.SubTask;
+import reverie.model.Task;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -72,5 +72,9 @@ public abstract class Util {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         return calendar.getTime();
+    }
+
+    public static ArrayList<SubTask> taskDivider(Task task, int minSubtaskDuration){
+        return new ArrayList<SubTask>();
     }
 }
