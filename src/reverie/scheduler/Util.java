@@ -73,8 +73,4 @@ public abstract class Util {
         calendar.set(Calendar.SECOND, 0);
         return calendar.getTime();
     }
-
-    public static ArrayList<SubTask> taskDivider(Task task, int minSubtaskDuration){
-        return new ArrayList<SubTask>();
-    }
 }

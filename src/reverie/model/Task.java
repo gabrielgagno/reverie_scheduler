@@ -15,22 +15,24 @@ import java.util.UUID;
  */
 public class Task extends Job implements Comparable<Task> {
     private int numOperations;
-    //the numOperations dictates the number of operations. the sieze of operationRanges is equal to this.
+    //the numOperations dictates the number of operations. the sieze of subTasks is equal to this.
     //in this class, super's startTimestamp denotes a "global" start time - that is, the start time of the entire task.
     //if the task has more than one operation, it becomes the start time of the first operation. this is the same for
     //super's endTimestamp, i.e. it is the end time of the last operation. in this case, the stagger operation happens
     //first before setting the super's endTimestamp.
     private ArrayList<SubTask> subTasks;
     private UUID prerequisiteJobId;
-    private int operationDuration;
+    private int minOperationDuration;
     private Date deadlineTimestamp;
     private long weight;
     private boolean hardDeadline; //reserve for future use
-    public Task(UUID jobId, String jobName, String jobNotes, int numOperations, int operationDuration, Date deadlineTimestamp) {
+
+    public Task(UUID jobId, String jobName, String jobNotes, int numOperations, int minOperationDuration, Date deadlineTimestamp) {
         super(jobId, jobName, jobNotes);
         this.numOperations = numOperations;
-        this.operationDuration = operationDuration;
+        this.minOperationDuration = minOperationDuration;
         this.deadlineTimestamp = deadlineTimestamp;
+        this.subTasks = new ArrayList<SubTask>();
     }
 
     public ArrayList<SubTask> getSubTasks() {
@@ -124,12 +126,12 @@ public class Task extends Job implements Comparable<Task> {
         this.numOperations = numOperations;
     }
 
-    public int getOperationDuration() {
-        return operationDuration;
+    public int getMinOperationDuration() {
+        return minOperationDuration;
     }
 
-    public void setOperationDuration(int operationDuration) {
-        this.operationDuration = operationDuration;
+    public void setMinOperationDuration(int minOperationDuration) {
+        this.minOperationDuration = minOperationDuration;
     }
 
     public Date getDeadlineTimestamp() {
