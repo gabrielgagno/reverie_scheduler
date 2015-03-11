@@ -39,7 +39,8 @@ public abstract class Scheduler {
         }
         while(priorityQueue.size()!=0){
             for(SubTask subTask : priorityQueue.get(i).getSubTasks()){
-
+                Scheduler.fitToSchedule(subTask, schedule, datePointer);
+                datePointer = subTask.getSubTaskEnd();
             }
             i++;
         }
