@@ -45,7 +45,17 @@ public abstract class Scheduler {
             subTaskList.addAll(t.getSubTasks());
         }
         while(priorityQueue.size()!=0){
-
+            /*
+            if fit  //before deadline and fits exactly
+                fit schedule
+                index = 0
+            else
+                if end of list
+                    skip to the end of next habit
+                    index = 0
+                else
+                    index++
+             */
         }
     }
 
