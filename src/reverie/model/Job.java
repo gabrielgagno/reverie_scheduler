@@ -37,6 +37,10 @@ public abstract class Job {
         this.jobNotes = jobNotes;
     }
 
+    protected Job(){
+
+    }
+
     protected UUID getJobId() {
         return jobId;
     }

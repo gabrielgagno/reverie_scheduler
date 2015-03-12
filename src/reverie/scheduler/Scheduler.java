@@ -32,30 +32,20 @@ public abstract class Scheduler {
     public static void reDraw(ArrayList<Job> schedule, ArrayList<Task> priorityQueue, ArrayList<Habit> habitQueue, Date currentDate){
         Date datePointer = Util.findNearestHour(currentDate);
         int i=0, j=0; //let i = for tasks, j = for subtasks
+        int index = 0;
         boolean any = false;
         schedule.clear();
         for(Habit h : habitQueue){
             Scheduler.fitToSchedule(h, schedule, datePointer);
         }
+
+        //
+        ArrayList<SubTask> subTaskList = new ArrayList<SubTask>();
+        for(Task t : priorityQueue){
+            subTaskList.addAll(t.getSubTasks());
+        }
         while(priorityQueue.size()!=0){
-            for(SubTask subTask : priorityQueue.get(i).getSubTasks()){
-                /*
-                if fit and not beyond deadline
-                    fit it
-                    remove from priority queue
-                else if not fit
-                    while(!one subtask assigned)
-                        if(fit and not beyond deadline)
-                            fit it
-                            remove from priority queue
-                        else
-                            move to next subtask
-                    end while
-                    if reach the end of queue
-                        skip to end of next habit
-                 */
-            }
-            i++;
+
         }
     }
 
