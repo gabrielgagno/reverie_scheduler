@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * Created by Dell on 2/26/2015.
  */
-public class SubTask {
+public class SubTask extends Job{
     private UUID motherTaskId;
     private Date subTaskStart;
     private Date subTaskEnd;
