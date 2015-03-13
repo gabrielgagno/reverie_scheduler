@@ -7,7 +7,7 @@ import java.util.UUID;
 /**
  * Created by Dell on 11/7/2014.
  */
-public class Habit extends Job {
+public class Habit extends Job implements Comparable<Habit>{
     //range start is the start time of the range
     //habits have an empty end timestamp, since they can run quite indefinitely. but for test purposes, we will put a deadline.
     private String rangeStart;
@@ -59,5 +59,10 @@ public class Habit extends Job {
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
+    }
+
+    @Override
+    public int compareTo(Habit o){
+        return o.getStartTimestamp().compareTo(startTimestamp);
     }
 }
