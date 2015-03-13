@@ -14,6 +14,12 @@ public class Habit extends Job {
     private int duration;
     private String frequency;
 
+    //Constants
+    private static String FREQ_DAILY;
+    private static String FREQ_WEEKLY;
+    private static String FREQ_MONTHLY;
+    private static String FREQ_ANNUALLY;
+
     public Habit(UUID jobId, String jobName, String jobNotes, String frequency, int duration, String rangeStart){
         super(jobId, jobName, jobNotes);
         this.frequency = frequency;
