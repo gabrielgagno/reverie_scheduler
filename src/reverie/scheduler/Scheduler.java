@@ -96,6 +96,10 @@ public abstract class Scheduler {
         return true;
     }
 
+    public static void fit(SubTask subTask, ArrayList<Job> schedule, ArrayList<Task> priorityQueue){
+        Date tDead = priorityQueue.get(Util.findTask(subTask.getMotherTaskId(), priorityQueue)).getDeadlineTimestamp();
+    }
+
     public static void fitToSchedule(SubTask subTask, ArrayList<Job> schedule, Date datePointer){
 
     }

@@ -1,5 +1,6 @@
 package reverie.scheduler;
 
+import reverie.model.Job;
 import reverie.model.SubTask;
 import reverie.model.Task;
 
@@ -72,5 +73,15 @@ public abstract class Util {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         return calendar.getTime();
+    }
+
+    public static int findTask(UUID objectId, ArrayList<Task> priorityQueue){
+        int prioritySize = priorityQueue.size();
+        for(int i=0;i<prioritySize;i++){
+            if(priorityQueue.get(i).getJobId() == objectId){
+                return i;
+            }
+        }
+        return -1;
     }
 }
