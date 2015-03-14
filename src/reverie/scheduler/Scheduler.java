@@ -7,6 +7,7 @@ import reverie.model.Task;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
@@ -30,6 +31,7 @@ public abstract class Scheduler {
     }
 
     public static void reDraw(ArrayList<Job> schedule, ArrayList<Task> priorityQueue, ArrayList<Habit> habitQueue, Date currentDate){
+        Collections.sort(habitQueue);
         Date datePointer = Util.findNearestHour(currentDate);
         int i=0, j=0; //let i = for tasks, j = for subtasks
         int index = 0;
@@ -96,8 +98,22 @@ public abstract class Scheduler {
         return true;
     }
 
-    public static boolean fit(){
+    public static boolean fit(SubTask subTask, ArrayList<Job> schedule, ArrayList<Task> priorityQueue, Date tStart){
+        Date tDead = priorityQueue.get(Util.findTask(subTask.getMotherTaskId(),priorityQueue)).getDeadlineTimestamp();
+        int schedSize = schedule.size();
+        for(int i=0;i<schedSize;i++){
+            if(schedule.get(i) instanceof Habit){
+                //Date hStart = schedule.get(i).getStartTimestamp();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(schedule.get(i).getStartTimestamp());
+                Calendar cal2 = Calendar.getInstance();
+                cal2.setTime(subTask.getSubTaskEnd());
+                if(Util.differenceInHours(cal2.getTime(), cal.getTime())<0){
 
+                }
+            }
+        }
+        return true;
     }
 
     public static void fitToSchedule(SubTask subTask, ArrayList<Job> schedule, Date datePointer){
