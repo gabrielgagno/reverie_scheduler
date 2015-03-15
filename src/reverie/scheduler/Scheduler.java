@@ -60,12 +60,12 @@ public abstract class Scheduler {
                     index++
              */
             if(fit(subTaskList.get(i), schedule, priorityQueue, datePointer)){
-                fitToSchedule(subTaskList.get(i), schedule, datePointer, priorityQueue);
+                datePointer = fitToSchedule(subTaskList.get(i), schedule, datePointer, priorityQueue);
                 i=0;
             }
             else{
                 if(i==subTaskList.size()){
-                    //TODO find next habit
+                    datePointer = Util.findNextHabit(habitQueue, datePointer);
                     i=0;
                 }
                 else{
@@ -96,9 +96,10 @@ public abstract class Scheduler {
     }
 
 
-    public static void fitToSchedule(SubTask subTask, ArrayList<Job> schedule, Date datePointer, ArrayList<Task> priorityQueue){
+    public static Date fitToSchedule(SubTask subTask, ArrayList<Job> schedule, Date datePointer, ArrayList<Task> priorityQueue){
         subTask.setSubTaskStart(datePointer);
         subTask.setSubTaskEnd(Util.getEnd(datePointer, priorityQueue.get(Util.findTask(subTask.getMotherTaskId(), priorityQueue)).getMinOperationDuration()));
+        return Util.getEnd(datePointer, priorityQueue.get(Util.findTask(subTask.getMotherTaskId(), priorityQueue)).getMinOperationDuration());
     }
 
     public static boolean fit(int index, Task task, ArrayList<Job> schedule){

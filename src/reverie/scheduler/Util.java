@@ -143,4 +143,18 @@ public abstract class Util {
         }
         return false;
     }
+
+    public static Date findNextHabit(ArrayList<Habit> habitQueue, Date datePointer){
+        for(Habit h: habitQueue){
+            if(habitSameDay(h, datePointer)){
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(datePointer);
+                Calendar cal2 = Calendar.getInstance();
+                cal2.setTime(h.getEndTimestamp());
+                cal.roll(Calendar.HOUR_OF_DAY, cal2.get(Calendar.HOUR_OF_DAY)-cal.get(Calendar.HOUR_OF_DAY));
+                return cal.getTime();
+            }
+        }
+        return null;
+    }
 }
