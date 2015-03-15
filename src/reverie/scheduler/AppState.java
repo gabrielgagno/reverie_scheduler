@@ -5,6 +5,7 @@ import reverie.model.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.TimeZone;
 
 /**
  * Created by Dell on 11/9/2014.
@@ -19,6 +20,7 @@ public abstract class AppState {
     private static String preferredView;
     private static int constX;
     private static int constY;
+    public static final TimeZone timeZone = TimeZone.getTimeZone("GMT+0");
 
     //state initialization methods
     public static void initalizeState(){
@@ -108,5 +110,9 @@ public abstract class AppState {
 
     public static void addToHabitQueue(Habit habit){
         AppState.habitQueue.add(habit);
+    }
+    //test
+    public static void addToSchedule(Habit habit){
+        AppState.schedule.add(habit);
     }
 }

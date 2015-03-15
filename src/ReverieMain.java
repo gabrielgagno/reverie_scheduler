@@ -7,11 +7,12 @@ import reverie.scheduler.*;
 import reverie.test.TestData;
 import reverie.view.ReverieMainFrame;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ReverieMain {
-    public static void main(String args[]){
+    public static void main(String args[]) throws ParseException {
         AppState.initalizeState();
         if(args.length>0){
             if(args[0].equals("-c")){

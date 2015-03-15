@@ -1,5 +1,7 @@
 package reverie.model;
 
+import reverie.scheduler.Util;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -10,21 +12,26 @@ import java.util.UUID;
 public class Habit extends Job implements Comparable<Habit>{
     //range start is the start time of the range
     //habits have an empty end timestamp, since they can run quite indefinitely. but for test purposes, we will put a deadline.
-    private String rangeStart;
+    private Date rangeStart;
+    private Date rangeEnd;
     private int duration;
     private String frequency;
 
     //Constants
-    private static String FREQ_DAILY;
-    private static String FREQ_WEEKLY;
-    private static String FREQ_MONTHLY;
-    private static String FREQ_ANNUALLY;
+    public static final String FREQ_ONCE = "once";
+    public static final String FREQ_DAILY = "daily";
+    public static final String FREQ_WEEKLY = "weekly";
+    public static final String FREQ_MONTHLY = "monthly";
+    public static final String FREQ_ANNUALLY = "annually";
 
-    public Habit(UUID jobId, String jobName, String jobNotes, String frequency, int duration, String rangeStart){
+    public Habit(UUID jobId, String jobName, String jobNotes, String frequency, int duration, Date startTimestamp, Date rangeStart, Date rangeEnd){
         super(jobId, jobName, jobNotes);
         this.frequency = frequency;
         this.duration = duration;
+        this.startTimestamp = startTimestamp;
         this.rangeStart = rangeStart;
+        this.rangeEnd = rangeEnd;
+        this.endTimestamp = Util.getEnd(startTimestamp, duration);
     }
 
     @Override
@@ -37,11 +44,11 @@ public class Habit extends Job implements Comparable<Habit>{
         super.setJobName(jobName);
     }
 
-    public String getRangeStart() {
+    public Date getRangeStart() {
         return rangeStart;
     }
 
-    public void setRangeStart(String rangeStart) {
+    public void setRangeStart(Date rangeStart) {
         this.rangeStart = rangeStart;
     }
 
@@ -59,6 +66,14 @@ public class Habit extends Job implements Comparable<Habit>{
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
+    }
+
+    public Date getRangeEnd() {
+        return rangeEnd;
+    }
+
+    public void setRangeEnd(Date rangeEnd) {
+        this.rangeEnd = rangeEnd;
     }
 
     @Override

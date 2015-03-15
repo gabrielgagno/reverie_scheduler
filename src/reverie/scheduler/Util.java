@@ -1,5 +1,6 @@
 package reverie.scheduler;
 
+import reverie.model.Habit;
 import reverie.model.Job;
 import reverie.model.SubTask;
 import reverie.model.Task;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class Util {
     public static final int HOUR_LONG = 3600*1000;
+    public static final String DEFAULT_DATE_FORMAT = "yyyy/MM/dd h:mm a";
     public static Date convertToDate(String date, String time){
         String newString = date + ' ' + time;
         Date buildDate = null;
@@ -40,7 +42,12 @@ public abstract class Util {
         return TimeUnit.MILLISECONDS.toHours(diff);
     }
 
-    public static Date getDeadline(Date date, int hours){
+    //run only extracted time here
+    public static long extractedTimeDifference(long earlier, long later){
+        return later - earlier;
+    }
+
+    public static Date getEnd(Date date, float hours){
         long newDateLong = unixTimestamp(date);
         newDateLong+= hours*HOUR_LONG;
         return new Date(newDateLong);
@@ -83,5 +90,57 @@ public abstract class Util {
             }
         }
         return -1;
+    }
+
+    public static long extractTimeInMillis(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setLenient(false);
+        calendar.setTime(date);
+        calendar.set(1970, Calendar.JANUARY, 1);
+
+        //calendar.setTimeZone(TimeZone.getTimeZone("WST"));
+        //System.out.println(calendar.getTime());
+        return calendar.getTimeInMillis() + 28800000;
+    }
+
+    public static Date extractTime(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setLenient(false);
+        calendar.setTime(date);
+        calendar.set(1970,Calendar.JANUARY,1);
+
+        //calendar.setTimeZone(TimeZone.getTimeZone("WST"));
+        long calends = calendar.getTimeInMillis() + 28800000;
+        return new Date(calends);
+    }
+
+    public static boolean overlap(Habit habit, Date tStart, Date tEnd){
+        return Util.extractTime(habit.getStartTimestamp()).after(Util.extractTime(tStart)) && Util.extractTime(habit.getEndTimestamp()).before(Util.extractTime(tEnd));
+    }
+
+    public static boolean habitSameDay(Habit habit, Date tStart){
+        String freq = habit.getFrequency();
+        Date dateStart = habit.getRangeStart();
+        Date dateEnd = habit.getRangeEnd();
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(tStart);
+        while(dateStart.compareTo(dateEnd)<0){
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(dateStart);
+            if(cal.get(Calendar.DAY_OF_WEEK)==cal2.get(Calendar.DAY_OF_WEEK)){
+                return true;
+            }
+            if(freq.equals(Habit.FREQ_WEEKLY)){
+                cal.roll(Calendar.DAY_OF_YEAR, 7);
+            }
+            else if(freq.equals(Habit.FREQ_MONTHLY)){
+                cal.roll(Calendar.MONTH, true);
+            }
+            else if(freq.equals(Habit.FREQ_ANNUALLY)){
+                cal.roll(Calendar.YEAR, true);
+            }
+            dateStart = cal.getTime();
+        }
+        return false;
     }
 }

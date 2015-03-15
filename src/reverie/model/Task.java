@@ -22,12 +22,12 @@ public class Task extends Job implements Comparable<Task> {
     //first before setting the super's endTimestamp.
     private ArrayList<SubTask> subTasks;
     private UUID prerequisiteJobId;
-    private int minOperationDuration;
+    private float minOperationDuration;
     private Date deadlineTimestamp;
     private long weight;
     private boolean hardDeadline; //reserve for future use
 
-    public Task(UUID jobId, String jobName, String jobNotes, int numOperations, int minOperationDuration, Date deadlineTimestamp) {
+    public Task(UUID jobId, String jobName, String jobNotes, int numOperations, float minOperationDuration, Date deadlineTimestamp) {
         super(jobId, jobName, jobNotes);
         this.numOperations = numOperations;
         this.minOperationDuration = minOperationDuration;
@@ -126,11 +126,11 @@ public class Task extends Job implements Comparable<Task> {
         this.numOperations = numOperations;
     }
 
-    public int getMinOperationDuration() {
+    public float getMinOperationDuration() {
         return minOperationDuration;
     }
 
-    public void setMinOperationDuration(int minOperationDuration) {
+    public void setMinOperationDuration(float minOperationDuration) {
         this.minOperationDuration = minOperationDuration;
     }
 

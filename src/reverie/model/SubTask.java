@@ -17,6 +17,10 @@ public class SubTask extends Job{
         this.subTaskEnd = subTaskEnd;
     }
 
+    public SubTask(UUID motherTaskId){
+        this.motherTaskId = motherTaskId;
+    }
+
     public UUID getMotherTaskId() {
         return motherTaskId;
     }

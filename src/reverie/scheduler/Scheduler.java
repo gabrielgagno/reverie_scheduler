@@ -20,7 +20,7 @@ public abstract class Scheduler {
         list.add(task);
         for(Task x:list){
             //assign new weights to task
-            x.setWeight(weight(AppState.getConstX(), AppState.getConstY(), Util.differenceInHours(new Date(), x.getDeadlineTimestamp()),x.getOperationDuration()));
+            //TODO x.setWeight(weight(AppState.getConstX(), AppState.getConstY(), Util.differenceInHours(new Date(), x.getDeadlineTimestamp()),x.getOperationDuration()));
         }
         //auto-sort
         Collections.sort(list);
@@ -46,7 +46,8 @@ public abstract class Scheduler {
         for(Task t : priorityQueue){
             subTaskList.addAll(t.getSubTasks());
         }
-        while(priorityQueue.size()!=0){
+        int scheduled = 0;
+        while(scheduled!=subTaskList.size()){
             /*
             if fit  //before deadline and fits exactly
                 fit schedule
@@ -58,6 +59,19 @@ public abstract class Scheduler {
                 else
                     index++
              */
+            if(fit(subTaskList.get(i), schedule, priorityQueue, datePointer)){
+                fitToSchedule(subTaskList.get(i), schedule, datePointer, priorityQueue);
+                i=0;
+            }
+            else{
+                if(i==subTaskList.size()){
+                    //TODO find next habit
+                    i=0;
+                }
+                else{
+                    i++;
+                }
+            }
         }
     }
 
@@ -67,7 +81,7 @@ public abstract class Scheduler {
         task.setStartTimestamp(datePointer);
         //System.out.println("IN FIT: " + datePointer);
         //set end time
-        task.setEndTimestamp(Util.getDeadline(datePointer, task.getOperationDuration()));
+        //TODO task.setEndTimestamp(Util.getDeadline(datePointer, task.getOperationDuration()));
         //System.out.println("FITYEND" + Util.getDeadline(datePointer, task.getOperationDuration()));
         schedule.add(task);
     }
@@ -76,9 +90,15 @@ public abstract class Scheduler {
         habit.setStartTimestamp(datePointer);
         //System.out.println("IN FIT: " + datePointer);
         //set end time
-        habit.setEndTimestamp(Util.getDeadline(datePointer, habit.getDuration()));
+        habit.setEndTimestamp(Util.getEnd(datePointer, habit.getDuration()));
         //System.out.println("FITYEND" + Util.getDeadline(datePointer, task.getOperationDuration()));
         schedule.add(habit);
+    }
+
+
+    public static void fitToSchedule(SubTask subTask, ArrayList<Job> schedule, Date datePointer, ArrayList<Task> priorityQueue){
+        subTask.setSubTaskStart(datePointer);
+        subTask.setSubTaskEnd(Util.getEnd(datePointer, priorityQueue.get(Util.findTask(subTask.getMotherTaskId(), priorityQueue)).getMinOperationDuration()));
     }
 
     public static boolean fit(int index, Task task, ArrayList<Job> schedule){
@@ -100,24 +120,28 @@ public abstract class Scheduler {
 
     public static boolean fit(SubTask subTask, ArrayList<Job> schedule, ArrayList<Task> priorityQueue, Date tStart){
         Date tDead = priorityQueue.get(Util.findTask(subTask.getMotherTaskId(),priorityQueue)).getDeadlineTimestamp();
+        Date tEnd = Util.getEnd(tStart, priorityQueue.get(Util.findTask(subTask.getMotherTaskId(),priorityQueue)).getMinOperationDuration());
         int schedSize = schedule.size();
+        System.out.println(schedSize);
         for(int i=0;i<schedSize;i++){
             if(schedule.get(i) instanceof Habit){
-                //Date hStart = schedule.get(i).getStartTimestamp();
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(schedule.get(i).getStartTimestamp());
-                Calendar cal2 = Calendar.getInstance();
-                cal2.setTime(subTask.getSubTaskEnd());
-                if(Util.differenceInHours(cal2.getTime(), cal.getTime())<0){
-
+                //check if habit's startTime starts after extractTime(tStart)
+                if(Util.extractTime(schedule.get(i).getStartTimestamp()).after(Util.extractTime(tStart))){
+                    System.out.println("HELLO!");
+                    if(Util.overlap((Habit) schedule.get(i), tStart, tEnd)){
+                        if(((Habit) schedule.get(i)).getFrequency().equals(Habit.FREQ_ONCE) || ((Habit) schedule.get(i)).getFrequency().equals(Habit.FREQ_DAILY)){
+                            return false;
+                        }
+                        else{
+                            if(Util.habitSameDay((Habit) schedule.get(i), tStart)){
+                                return false;
+                            }
+                        }
+                    }
                 }
             }
         }
         return true;
-    }
-
-    public static void fitToSchedule(SubTask subTask, ArrayList<Job> schedule, Date datePointer){
-
     }
 
     public static long weight(int wx, int wy, long x, long y){
