@@ -35,6 +35,7 @@ public abstract class TestData {
     }*/
 
     public static void testRun() throws ParseException{
-        Habit h1 = new Habit(UUID.randomUUID(), "Sleep", Habit.FREQ_DAILY, );
+        Habit h1 = new Habit(UUID.randomUUID(), "Sleep","Sleep all day", Habit.FREQ_DAILY, 1, new SimpleDateFormat("h:mm a").parse("3:00 AM"), new SimpleDateFormat("y/MM/d h:mm a").parse("2015/3/15 3:00 AM"), new SimpleDateFormat("y/MM/d h:mm a").parse("2015/3/15 4:00 AM"));
+        Habit h2 = new Habit(UUID.randomUUID(), "eat", "eat all day", Habit.FREQ_ONCE, 1, new SimpleDateFormat("h:mm a").parse("5:00 AM"), new SimpleDateFormat("y/MM/d h:mm a").parse("2015/3/15 5:00 AM"), new SimpleDateFormat("y/MM/d h:mm a").parse("2015/3/15 6:00 AM"));
     }
 }
