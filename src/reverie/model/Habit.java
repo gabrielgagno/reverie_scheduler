@@ -14,7 +14,7 @@ public class Habit extends Job implements Comparable<Habit>{
     //habits have an empty end timestamp, since they can run quite indefinitely. but for test purposes, we will put a deadline.
     private Date rangeStart;
     private Date rangeEnd;
-    private int duration;
+    private float duration;
     private String frequency;
 
     //Constants
@@ -24,7 +24,7 @@ public class Habit extends Job implements Comparable<Habit>{
     public static final String FREQ_MONTHLY = "monthly";
     public static final String FREQ_ANNUALLY = "annually";
 
-    public Habit(UUID jobId, String jobName, String jobNotes, String frequency, int duration, Date startTimestamp, Date rangeStart, Date rangeEnd){
+    public Habit(UUID jobId, String jobName, String jobNotes, String frequency, float duration, Date startTimestamp, Date rangeStart, Date rangeEnd){
         super(jobId, jobName, jobNotes);
         this.frequency = frequency;
         this.duration = duration;
@@ -52,7 +52,7 @@ public class Habit extends Job implements Comparable<Habit>{
         this.rangeStart = rangeStart;
     }
 
-    public int getDuration() {
+    public float getDuration() {
         return duration;
     }
 
@@ -74,6 +74,10 @@ public class Habit extends Job implements Comparable<Habit>{
 
     public void setRangeEnd(Date rangeEnd) {
         this.rangeEnd = rangeEnd;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
     }
 
     @Override
